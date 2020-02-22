@@ -9,6 +9,7 @@ import Restaurants from './views/Restaurants.vue'
 Vue.use(Router)
 
 export default new Router({
+  linkExactActiveClass: 'active', //為當前選定的 router-link 增加 class，class 名稱自行定義
   routes: [
     {
       path: '/',
@@ -18,37 +19,37 @@ export default new Router({
     {
       path: '/signin',
       name: 'sign-in',
-      component: SignIn
+      component: SignIn //component為單數，為 vue-router 的用法
     },
     {
       path: '/signup',
       name: 'sign-up',
-      component: () => import('./views/SignUp.vue')
+      component: () => import('./views/SignUp.vue')  //component為單數，為 vue-router 的用法
     },
     {
       path: '/restaurants',
       name: 'restaurants',
-      component: Restaurants
+      component: Restaurants //component為單數，為 vue-router 的用法
     },
     {
       path: '/restaurants/feeds',
       name: 'restaurants-feeds',
-      component: () => import('./views/RestaurantsFeeds.vue')
+      component: () => import('./views/RestaurantsFeeds.vue') //component為單數，為 vue-router 的用法
     },
     {
       path: '/restaurants/top',
       name: 'restaurants-top',
-      component: () => import('./views/RestaurantsTop.vue')
+      component: () => import('./views/RestaurantsTop.vue') //component為單數，為 vue-router 的用法
     },
     {
       path: '/users/top',
       name: 'users-top',
-      component: () => import('./views/UsersTop.vue')
+      component: () => import('./views/UsersTop.vue') //component為單數，為 vue-router 的用法
     },
     {
       path: '*',
       name: 'not-found',
-      component: NotFound
+      component: NotFound //component為單數
     },
   ]
 })
