@@ -11,8 +11,9 @@
         <NewestRestaurants v-bind:restaurants="restaurants" />
       </div>
       <div class="col-md-6">
-        <!-- 最新評論 NewestComments-->
         <h3>最新評論</h3>
+        <!-- 最新評論 NewestComments-->
+        <NewestComments v-bind:comments="comments" />
       </div>
     </div>
   </div>
@@ -582,7 +583,8 @@ export default {
   components: {
     //複數 components
     NavTabs: () => import("../components/NavTabs"), //此為 ES6(ES2015) 表示法
-    NewestRestaurants: () => import("../components/NewestRestaurants")
+    NewestRestaurants: () => import("../components/NewestRestaurants"),
+    NewestComments: () => import("../components/NewestComments")
   },
   data() {
     return {
