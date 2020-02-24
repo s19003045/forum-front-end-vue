@@ -16,14 +16,31 @@
         <p class="card-text text-truncate">{{restaurant.description}}</p>
       </div>
       <div class="card-footer">
-        <div class="mb-2">
-          <button type="button" class="btn btn-danger btn-border favorite mr-2">移除最愛</button>
-          <button type="button" class="btn btn-primary btn-border favorite mr-2">加到最愛</button>
-        </div>
-        <div class="mb-2">
-          <button type="button" class="btn btn-danger like mr-2">Unlike</button>
-          <button type="button" class="btn btn-primary like mr-2">Like</button>
-        </div>
+        <button
+          v-if="restaurant.isFavorited"
+          v-on:click.stop.prevent="deleteFavorite"
+          type="button"
+          class="btn btn-danger btn-border favorite mr-2"
+        >移除最愛</button>
+        <button
+          v-else
+          v-on:click.stop.prevent="addFavorite"
+          type="button"
+          class="btn btn-primary btn-border favorite mr-2"
+        >加到最愛</button>
+
+        <button
+          v-if="restaurant.isLiked"
+          v-on:click.stop.prevent="deleteLike"
+          type="button"
+          class="btn btn-danger like mr-2"
+        >Unlike</button>
+        <button
+          v-on:click.stop.prevent="addLike"
+          v-else
+          type="button"
+          class="btn btn-primary like mr-2"
+        >Like</button>
       </div>
     </div>
   </div>
@@ -33,7 +50,7 @@
 export default {
   props: {
     initialRestaurant: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
@@ -41,6 +58,32 @@ export default {
     return {
       restaurant: this.initialRestaurant
     };
+  },
+  methods: {
+    addFavorite() {
+      this.restaurant = {
+        ...this.restaurant, // 保留餐廳原有資料
+        isFavorited: true
+      };
+    },
+    deleteFavorite() {
+      this.restaurant = {
+        ...this.restaurant, // 保留餐廳原有資料
+        isFavorited: false
+      };
+    },
+    addLike() {
+      this.restaurant = {
+        ...this.restaurant, // 保留餐廳原有資料
+        isLiked: true
+      };
+    },
+    deleteLike() {
+      this.restaurant = {
+        ...this.restaurant, // 保留餐廳原有資料
+        isLiked: false
+      };
+    }
   }
 };
 </script>
