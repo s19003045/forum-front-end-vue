@@ -4,6 +4,7 @@
     <NavTabs />
     <h1 class="mt-5">首頁 - 餐廳列表</h1>
     <!-- 餐廳類別標籤 RestaurantsNavPills -->
+    <RestaurantsNavPills :categories="categories" />
     <div class="row">
       <!-- 餐廳卡片 RestaurantCard-->
       <RestaurantCard
@@ -13,6 +14,12 @@
       />
     </div>
     <!-- 分頁標籤 RestaurantPagination -->
+    <RestaurantPagination
+      v-if="totalPage > 1"
+      :total-page="totalPage"
+      :current-page="currentPage"
+      :category-id="categoryId"
+    />
   </div>
 </template>
 
@@ -234,7 +241,7 @@ const dummyData = {
     }
   ],
   categoryId: "",
-  page: 1,
+  page: 3,
   totalPage: [1, 2, 3, 4, 5],
   prev: 1,
   next: 2
@@ -254,9 +261,9 @@ export default {
   components: {
     //複數 components
     NavTabs: () => import("../components/NavTabs"), //此為 ES6(ES2015) 表示法,
-    // RestaurantsNavPills: () => import("../components/RestaurantsNavPills"),
-    RestaurantCard: () => import("../components/RestaurantCard")
-    // RestaurantPagination: () => import("../components/RestaurantPagination")
+    RestaurantsNavPills: () => import("../components/RestaurantsNavPills"),
+    RestaurantCard: () => import("../components/RestaurantCard"),
+    RestaurantPagination: () => import("../components/RestaurantPagination")
   },
   data() {
     return {
