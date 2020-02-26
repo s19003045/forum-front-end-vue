@@ -27,32 +27,11 @@
 const dummyData = {
   restaurants: [
     {
-      id: 143,
-      name: "testrestaurant",
-      tel: "",
-      address: "",
-      opening_hours: "",
-      description: "",
-      image: null,
-      viewCounts: null,
-      createdAt: "2020-01-19T03:04:21.188Z",
-      updatedAt: "2020-01-19T03:04:21.188Z",
-      CategoryId: 109,
-      Category: {
-        id: 109,
-        name: "cool",
-        createdAt: "2019-12-17T11:36:08.937Z",
-        updatedAt: "2019-12-17T11:36:08.937Z"
-      },
-      isFavorited: false,
-      isLiked: false
-    },
-    {
       id: 51,
       name: "發大財0121牛排",
       tel: "12345678",
       address: "高雄市",
-      opening_hours: "00:00",
+      opening_hours: "08:00",
       description: "123",
       image: "https://i.imgur.com/CaeM9rg.jpg",
       viewCounts: 27,
@@ -75,8 +54,8 @@ const dummyData = {
       address: "麥當勞總部",
       opening_hours: "03:33",
       description: "",
-      image: null,
-      viewCounts: null,
+      image: "https://i.imgur.com/CaeM9rg.jpg",
+      viewCounts: 33,
       createdAt: "2020-02-16T05:09:24.297Z",
       updatedAt: "2020-02-16T05:09:24.297Z",
       CategoryId: 6,
@@ -123,8 +102,8 @@ const dummyData = {
       viewCounts: 112,
       createdAt: "2019-11-20T06:25:42.928Z",
       updatedAt: "2020-02-16T05:35:03.543Z",
-      CategoryId: null,
-      Category: null,
+      CategoryId: 3,
+      Category: "hello",
       isFavorited: false,
       isLiked: false
     },
@@ -140,8 +119,8 @@ const dummyData = {
       viewCounts: 9,
       createdAt: "2019-11-20T06:25:42.928Z",
       updatedAt: "2020-02-16T05:35:11.396Z",
-      CategoryId: null,
-      Category: null,
+      CategoryId: 4,
+      Category: "美式",
       isFavorited: false,
       isLiked: false
     },
@@ -157,59 +136,8 @@ const dummyData = {
       viewCounts: 6,
       createdAt: "2019-11-20T06:25:42.927Z",
       updatedAt: "2020-02-16T05:34:58.076Z",
-      CategoryId: null,
-      Category: null,
-      isFavorited: false,
-      isLiked: false
-    },
-    {
-      id: 26,
-      name: "Dayna Roberts",
-      tel: "759-389-2695",
-      address: "9850 Kaia Circle",
-      opening_hours: "08:00",
-      description: "ipsum",
-      image:
-        "https://loremflickr.com/320/240/restaurant,food/?random=3.7178880115385837",
-      viewCounts: null,
-      createdAt: "2019-11-20T06:25:42.928Z",
-      updatedAt: "2019-11-20T06:25:42.928Z",
-      CategoryId: null,
-      Category: null,
-      isFavorited: true,
-      isLiked: false
-    },
-    {
-      id: 34,
-      name: "Frida Jones",
-      tel: "(605) 542-9140 x08706",
-      address: "5248 Dare Forge",
-      opening_hours: "08:00",
-      description: "quidem quis quia",
-      image:
-        "https://loremflickr.com/320/240/restaurant,food/?random=48.33317711631233",
-      viewCounts: null,
-      createdAt: "2019-11-20T06:25:42.929Z",
-      updatedAt: "2019-11-20T06:25:42.929Z",
-      CategoryId: null,
-      Category: null,
-      isFavorited: false,
-      isLiked: false
-    },
-    {
-      id: 36,
-      name: "Kale Nicolas",
-      tel: "1-129-966-2808",
-      address: "54065 Austin Plains",
-      opening_hours: "08:00",
-      description: "Est et id saepe tenetur et veritatis et. Qui simil",
-      image:
-        "https://loremflickr.com/320/240/restaurant,food/?random=11.056442083543061",
-      viewCounts: null,
-      createdAt: "2019-11-20T06:25:42.929Z",
-      updatedAt: "2019-11-20T06:25:42.929Z",
-      CategoryId: null,
-      Category: null,
+      CategoryId: 5,
+      Category: "泰式",
       isFavorited: false,
       isLiked: false
     }
@@ -240,7 +168,7 @@ const dummyData = {
       updatedAt: "2020-01-20T12:30:43.772Z"
     }
   ],
-  categoryId: "",
+  categoryId: 1,
   page: 3,
   totalPage: [1, 2, 3, 4, 5],
   prev: 1,
@@ -275,7 +203,7 @@ export default {
     };
   },
   created() {
-    this.fetchRestaurants()();
+    this.fetchRestaurants();
   },
   methods: {
     fetchRestaurants() {
