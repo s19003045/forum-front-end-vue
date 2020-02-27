@@ -5,12 +5,17 @@
     <RestaurantDetail :initial-restaurant="restaurant" />
     <hr />
     <!-- 餐廳評論 RestaurantComments -->
+    <RestaurantComments
+      :restaurant-comments="restaurantComments"
+      @after-delete-comment="afterDeleteComment"
+    />
     <!-- 新增評論 CreateComment -->
   </div>
 </template>
 
 <script>
 import RestaurantDetail from "../components/RestaurantDetail";
+import RestaurantComments from "../components/RestaurantComments";
 
 const dummyData = {
   restaurant: {
@@ -34,7 +39,7 @@ const dummyData = {
     LikedUsers: [],
     Comments: [
       {
-        id: 3,
+        id: 1,
         text: "Quos asperiores in nostrum cupiditate excepturi aspernatur.",
         UserId: 2,
         RestaurantId: 1,
@@ -43,6 +48,44 @@ const dummyData = {
         User: {
           id: 2,
           name: "user1",
+          email: "user1@example.com",
+          password:
+            "$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm",
+          image: "https://i.imgur.com/XooCt5K.png",
+          isAdmin: false,
+          createdAt: "2019-06-22T09:00:43.000Z",
+          updatedAt: "2019-06-23T01:16:31.000Z"
+        }
+      },
+      {
+        id: 2,
+        text: "Quos asperiores in nostrum cupiditate excepturi aspernatur.",
+        UserId: 2,
+        RestaurantId: 1,
+        createdAt: "2019-06-22T09:00:43.000Z",
+        updatedAt: "2019-06-22T09:00:43.000Z",
+        User: {
+          id: 2,
+          name: "user2",
+          email: "user1@example.com",
+          password:
+            "$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm",
+          image: "https://i.imgur.com/XooCt5K.png",
+          isAdmin: false,
+          createdAt: "2019-06-22T09:00:43.000Z",
+          updatedAt: "2019-06-23T01:16:31.000Z"
+        }
+      },
+      {
+        id: 3,
+        text: "Quos asperiores in nostrum cupiditate excepturi aspernatur.",
+        UserId: 2,
+        RestaurantId: 1,
+        createdAt: "2019-06-22T09:00:43.000Z",
+        updatedAt: "2019-06-22T09:00:43.000Z",
+        User: {
+          id: 2,
+          name: "user3",
           email: "user1@example.com",
           password:
             "$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm",
@@ -60,7 +103,8 @@ const dummyData = {
 
 export default {
   components: {
-    RestaurantDetail: RestaurantDetail
+    RestaurantDetail: RestaurantDetail,
+    RestaurantComments: RestaurantComments
   },
   data() {
     return {
@@ -102,6 +146,11 @@ export default {
 
       console.log(this.restaurant);
       this.restaurantComments = dummyData.restaurant.Comments;
+    },
+    afterDeleteComment(commentId) {
+      this.restaurantComments = this.restaurantComments.filter(
+        comment => comment.id != commentId
+      );
     }
   }
 };

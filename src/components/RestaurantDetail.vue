@@ -33,13 +33,13 @@
 
       <button
         v-if="restaurant.isFavorited"
-        v-on:click.prevent.stop="toggleFavorite"
+        @click.prevent.stop="toggleFavorite"
         type="button"
         class="btn btn-danger btn-border mr-2"
       >移除最愛</button>
       <button
         v-else
-        v-on:click.prevent.stop="toggleFavorite"
+        @click.prevent.stop="toggleFavorite"
         type="button"
         class="btn btn-primary btn-border mr-2"
       >加到最愛</button>
