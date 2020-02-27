@@ -4,17 +4,7 @@
     <h1 class="mt-5">美食達人</h1>
     <hr />
     <div class="row text-center">
-      <div v-for="user in users" :key="user.id" class="col-3">
-        <a href="#">
-          <img :src="user.image" width="140px" height="140px" />
-        </a>
-        <h2>User</h2>
-        <span class="badge badge-secondary">追蹤人數：{{user.FollowerCount}}</span>
-        <p class="mt-3">
-          <button v-if="user.isFollowed" type="button" class="btn btn-danger">取消追蹤</button>
-          <button v-else type="button" class="btn btn-primary">追蹤</button>
-        </p>
-      </div>
+      <UserCard v-for="user in users" :key="user.id" :initial-user="user" />
     </div>
   </div>
 </template>
@@ -181,7 +171,8 @@ const dummyData = {
 export default {
   components: {
     //複數 components
-    NavTabs: () => import("../components/NavTabs") //此為 ES6(ES2015) 表示法
+    NavTabs: () => import("../components/NavTabs"), //此為 ES6(ES2015) 表示法
+    UserCard: () => import("../components/UserCard")
   },
   data() {
     return {
