@@ -184,7 +184,7 @@ const dummyData = {
 //     NavTabs //此為 ES6(ES2015) 表示法
 //   }
 // };
-// 方法二：(需要在 .eslintrc 設定 babel-eslint 為 "parserOptions" 之一)
+// 方法二：(需要在 .eslintrc 設定 babel-eslint 為 "parserOptions" 之一)，並做如下設定，才可以使用 ES6 語法
 export default {
   components: {
     //複數 components
