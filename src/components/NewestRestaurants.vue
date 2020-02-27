@@ -16,8 +16,10 @@
 </template>
 
 <script>
-// import moment from "moment";
+import { fromNowFilter } from "../utils/mixins";
+
 export default {
+  mixins: [fromNowFilter],
   props: {
     restaurants: {
       type: Array,

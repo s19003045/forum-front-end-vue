@@ -16,7 +16,9 @@
 </template>
 
 <script>
+import { fromNowFilter } from "../utils/mixins";
 export default {
+  mixins: [fromNowFilter],
   props: {
     comments: {
       type: Array,
