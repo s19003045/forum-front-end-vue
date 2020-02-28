@@ -22,7 +22,7 @@
         <!-- is user is login -->
         <template v-if="isAuthenticated">
           <router-link
-            to="#"
+            :to="{name:'users',params:{id:currentUser.id}}"
             v-if="isAuthenticated==true"
             class="text-white mr-3"
           >{{currentUser.name || '使用者'}} 您好</router-link>

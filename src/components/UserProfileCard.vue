@@ -23,9 +23,9 @@
             </li>
           </ul>
           <p v-if="currentUser.id===user.id">
-            <a href="/users/2/edit">
+            <router-link :to="{name:'users-editor',params:{id:currentUser.id}}">
               <button type="submit" class="btn btn-primary">edit</button>
-            </a>
+            </router-link>
           </p>
           <p v-else-if="user.isFollowed" class="mt-3">
             <button @click.prevent.stop="toggleFollow" type="button" class="btn btn-danger">取消追蹤</button>
