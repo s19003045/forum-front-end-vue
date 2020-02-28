@@ -56,7 +56,11 @@ export default new Router({
       name: 'users-top',
       component: () => import('./views/UsersTop.vue') //component為單數，為 vue-router 的用法
     },
-
+    {
+      path: '/users/:id',
+      name: 'users', //必須與路由的名稱一致，可以在 router-link 中使用此 name {router-link :to="{name:'users',params:{id:xxxx}}"}
+      component: () => import('./views/User.vue') //component為單數，為 vue-router 的用法
+    },
     {
       path: '*',
       name: 'not-found',
