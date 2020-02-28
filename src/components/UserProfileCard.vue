@@ -22,10 +22,16 @@
               <strong>{{user.Followers.length}}</strong> followers (追隨者)
             </li>
           </ul>
-          <p>
+          <p v-if="currentUser.id===user.id">
             <a href="/users/2/edit">
               <button type="submit" class="btn btn-primary">edit</button>
             </a>
+          </p>
+          <p v-else-if="user.isFollowed" class="mt-3">
+            <button @click.prevent.stop="toggleFollow" type="button" class="btn btn-danger">取消追蹤</button>
+          </p>
+          <p v-else class="mt-3">
+            <button @click.prevent.stop="toggleFollow" type="button" class="btn btn-primary">追蹤</button>
           </p>
         </div>
       </div>
@@ -39,6 +45,17 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    currentUser: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    toggleFollow() {
+      // TODO: 打 API
+
+      this.user.isFollowed = !this.user.isFollowed;
     }
   }
 };
