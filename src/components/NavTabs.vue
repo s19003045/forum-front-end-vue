@@ -2,10 +2,19 @@
   <ul class="nav nav-tabs mb-4">
     <!-- 必須加入 :key="tab.id"，否則會報錯 -->
     <!-- In 2.2.0+, when using v-for with a component, a key is now required. -->
-    <li v-for="tab in tabs" :key="tab.id" class="nav-item">
+    <li
+      v-for="tab in tabs"
+      :key="tab.id"
+      class="nav-item"
+    >
       <!-- 官方文件中提到，router-link 中連結屬性 ，:to 或 to 皆可以，但測試時發現 to 有問題 -->
       <!-- <router-link :to="tab.path" class="nav-link">{{ tab.title }}</router-link> -->
-      <router-link :to="tab.path" class="nav-link">{{ tab.title }}</router-link>
+      <router-link
+        :to="tab.path"
+        class="nav-link"
+      >
+        {{ tab.title }}
+      </router-link>
     </li>
   </ul>
 </template>

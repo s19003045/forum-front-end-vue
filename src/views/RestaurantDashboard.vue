@@ -1,21 +1,21 @@
 <template>
   <div class="container py-5">
-    <h1>{{restaurant.name}}</h1>
-    <h5>[{{restaurant.Category}}]</h5>
-    <hr />
+    <h1>{{ restaurant.name }}</h1>
+    <h5>[{{ restaurant.Category }}]</h5>
+    <hr>
 
     <div class="row">
       <div class="col-4">
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             關於此餐廳的評論數
-            <span class="badge badge-primary badge-pill">{{restaurant.Comments.length}}</span>
+            <span class="badge badge-primary badge-pill">{{ restaurant.Comments.length }}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             多少人收藏此家餐廳
             <span
               class="badge badge-primary badge-pill"
-            >{{restaurant.FavoritedUsers.length}}</span>
+            >{{ restaurant.FavoritedUsers.length }}</span>
           </li>
         </ul>
       </div>

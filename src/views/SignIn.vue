@@ -1,8 +1,13 @@
 <template>
   <div class="container py-5 mt-5">
-    <form class="w-100" @submit.prevent.stop="handleSubmit">
+    <form
+      class="w-100"
+      @submit.prevent.stop="handleSubmit"
+    >
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        <h1 class="h3 mb-3 font-weight-normal">
+          Sign In
+        </h1>
       </div>
 
       <div class="form-label-group mb-2">
@@ -16,7 +21,7 @@
           placeholder="email"
           required
           autofocus
-        />
+        >
       </div>
 
       <div class="form-label-group mb-3">
@@ -29,22 +34,28 @@
           class="form-control"
           placeholder="Password"
           required
-        />
+        >
       </div>
 
       <button
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
         :disabled="isProcessing"
-      >Submit</button>
+      >
+        Submit
+      </button>
 
       <div class="text-center mb-3">
         <p>
-          <router-link to="/signup">Sign Up</router-link>
+          <router-link to="/signup">
+            Sign Up
+          </router-link>
         </p>
       </div>
 
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+      <p class="mt-5 mb-3 text-muted text-center">
+        &copy; 2017-2018
+      </p>
     </form>
   </div>
 </template>

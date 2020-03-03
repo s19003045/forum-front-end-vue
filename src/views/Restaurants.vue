@@ -2,7 +2,9 @@
   <div class="container py-5">
     <!-- 使用 NavTabs 元件 -->
     <NavTabs />
-    <h1 class="mt-5">首頁 - 餐廳列表</h1>
+    <h1 class="mt-5">
+      首頁 - 餐廳列表
+    </h1>
     <!-- 餐廳類別標籤 RestaurantsNavPills -->
     <RestaurantsNavPills :categories="categories" />
     <div class="row">

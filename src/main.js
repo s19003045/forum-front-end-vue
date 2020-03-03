@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import moment from "moment";
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 // 建立 Vue instance
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
 

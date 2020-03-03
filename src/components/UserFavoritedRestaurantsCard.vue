@@ -6,7 +6,7 @@
     <div class="card-body">
       <span
         v-for="userFavoritedRestaurant
- in userFavoritedRestaurants"
+          in userFavoritedRestaurants"
         :key="userFavoritedRestaurant.id"
         class="px-1"
       >
@@ -16,7 +16,7 @@
             width="60"
             height="60"
             class="avatar"
-          />
+          >
         </router-link>
       </span>
     </div>

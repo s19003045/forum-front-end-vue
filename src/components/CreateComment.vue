@@ -2,10 +2,20 @@
   <form @submit.prevent.stop="handleSubmit">
     <div class="form-group">
       <label for="text">留下評論：</label>
-      <textarea v-model="text" class="form-control" rows="3" name="text" />
+      <textarea
+        v-model="text"
+        class="form-control"
+        rows="3"
+        name="text"
+      />
     </div>
     <div class="text-right">
-      <button type="submit" class="btn btn-primary mr-0">Submit</button>
+      <button
+        type="submit"
+        class="btn btn-primary mr-0"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </template>

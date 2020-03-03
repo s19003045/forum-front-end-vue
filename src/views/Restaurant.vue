@@ -3,14 +3,17 @@
     <h1>餐廳描述頁</h1>
     <!-- 餐廳資訊頁 RestaurantDetail -->
     <RestaurantDetail :initial-restaurant="restaurant" />
-    <hr />
+    <hr>
     <!-- 餐廳評論 RestaurantComments -->
     <RestaurantComments
       :restaurant-comments="restaurantComments"
       @after-delete-comment="afterDeleteComment"
     />
     <!-- 新增評論 CreateComment -->
-    <CreateComment :restaurant-id="restaurant.id" @after-create-comment="afterCreateComment" />
+    <CreateComment
+      :restaurant-id="restaurant.id"
+      @after-create-comment="afterCreateComment"
+    />
   </div>
 </template>
 
