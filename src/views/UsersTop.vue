@@ -4,7 +4,6 @@
     <h1 class="mt-5">美食達人</h1>
     <hr />
     <div class="row text-center">
-      <!-- <UserCard v-for="user in users" :key="user.id" :initial-user="user" /> -->
       <div v-for="user in users" :key="user.id" class="col-3">
         <router-link :to="{name:'users',params:{id:user.id}}">
           <img :src="user.image" width="140px" height="140px" />
