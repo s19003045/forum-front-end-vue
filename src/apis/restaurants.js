@@ -4,10 +4,15 @@ const getToken = () => localStorage.getItem('token') //此處為箭頭函式！�
 
 export default {
   getRestaurants({ page, categoryId }) {
-    console.log(getToken())
     const searchParams = new URLSearchParams({ page, categoryId })
     return apiHelper.get(`/restaurants?${searchParams.toString()}`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
+  },
+  getRestaurantsFeeds() {
+    return apiHelper.get(`/restaurants/feeds`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
   }
+
 }

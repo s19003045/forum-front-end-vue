@@ -24,19 +24,22 @@
 </template>
 
 <script>
+// 載入 components
+import NavTabs from "../components/NavTabs";
+import RestaurantsNavPills from "../components/RestaurantsNavPills";
+import RestaurantCard from "../components/RestaurantCard";
+import RestaurantPagination from "../components/RestaurantPagination";
+// 載入 utils
 import restaurantsAPI from "../apis/restaurants";
 import { Toast } from "../utils/helpers";
-// import axios from "axios";
-// const baseURL = "https://sheltered-sea-38412.herokuapp.com/api";
-// const getToken = localStorage.getItem("token");
 
 export default {
   components: {
     //複數 components
-    NavTabs: () => import("../components/NavTabs"), //此為 ES6(ES2015) 表示法,
-    RestaurantsNavPills: () => import("../components/RestaurantsNavPills"),
-    RestaurantCard: () => import("../components/RestaurantCard"),
-    RestaurantPagination: () => import("../components/RestaurantPagination")
+    NavTabs,
+    RestaurantsNavPills,
+    RestaurantCard,
+    RestaurantPagination
   },
   data() {
     return {
@@ -55,9 +58,6 @@ export default {
   beforeRouteUpdate(to, from, next) {
     const { page, categoryId } = to.query;
     this.fetchRestaurants({ page, categoryId });
-    // axios.get(`${baseURL}/restaurants?page=${page}&categoryId=2`, {
-    //   Authorization: `Bearer ${getToken}`
-    // });
     next();
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
         this.restaurants = data.restaurants;
         this.totalPage = data.totalPage.length;
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
         Toast.fire({
           icon: "error",
           title: "無法取得餐廳資料，請稍後再試"
