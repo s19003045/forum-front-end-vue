@@ -2,6 +2,11 @@ import { apiHelper } from '../utils/helpers'
 const getToken = () => localStorage.getItem('token')
 
 export default {
+  getTopUsers() {
+    return apiHelper.get('/users/top', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
   addFavorite(restaurantId) {
     // axios.post 若無放送 data ，記得放 null
     return apiHelper.post(`/favorite/${restaurantId}`, null, {
@@ -21,6 +26,17 @@ export default {
   },
   deleteLike(restaurantId) {
     return apiHelper.delete(`/like/${restaurantId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  addFollowing(followingId) {
+    // axios.post 若無放送 data ，記得放 null
+    return apiHelper.post(`/following/${followingId}`, null, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  deleteFollowing(followingId) {
+    return apiHelper.delete(`/following/${followingId}`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   }
