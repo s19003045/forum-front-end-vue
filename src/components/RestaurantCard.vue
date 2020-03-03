@@ -18,25 +18,25 @@
       <div class="card-footer">
         <button
           v-if="restaurant.isFavorited"
-          v-on:click.stop.prevent="deleteFavorite"
+          v-on:click.stop.prevent="deleteFavorite(restaurant.id)"
           type="button"
           class="btn btn-danger btn-border favorite mr-2"
         >移除最愛</button>
         <button
           v-else
-          v-on:click.stop.prevent="addFavorite"
+          v-on:click.stop.prevent="addFavorite(restaurant.id)"
           type="button"
           class="btn btn-primary btn-border favorite mr-2"
         >加到最愛</button>
 
         <button
           v-if="restaurant.isLiked"
-          v-on:click.stop.prevent="deleteLike"
+          v-on:click.stop.prevent="deleteLike(restaurant.id)"
           type="button"
           class="btn btn-danger like mr-2"
         >Unlike</button>
         <button
-          v-on:click.stop.prevent="addLike"
+          v-on:click.stop.prevent="addLike(restaurant.id)"
           v-else
           type="button"
           class="btn btn-primary like mr-2"
@@ -47,6 +47,9 @@
 </template>
 
 <script>
+import usersAPI from "../apis/users";
+import { Toast } from "../utils/helpers";
+
 export default {
   props: {
     initialRestaurant: {
@@ -60,29 +63,99 @@ export default {
     };
   },
   methods: {
-    addFavorite() {
-      this.restaurant = {
-        ...this.restaurant, // 保留餐廳原有資料
-        isFavorited: true
-      };
+    async addFavorite(restaurantId) {
+      try {
+        const { data, statusText } = await usersAPI.addFavorite(restaurantId);
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.restaurant = {
+          ...this.restaurant, // 保留餐廳原有資料
+          isFavorited: true
+        };
+        Toast.fire({
+          icon: "success",
+          title: "已成功加入我的最愛清單"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳加入最愛清單，請稍後再試"
+        });
+      }
     },
-    deleteFavorite() {
-      this.restaurant = {
-        ...this.restaurant, // 保留餐廳原有資料
-        isFavorited: false
-      };
+    async deleteFavorite(restaurantId) {
+      try {
+        const { data, statusText } = await usersAPI.deleteFavorite(
+          restaurantId
+        );
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.restaurant = {
+          ...this.restaurant, // 保留餐廳原有資料
+          isFavorited: false
+        };
+        Toast.fire({
+          icon: "success",
+          title: "已成功從我的最愛清單中移除"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳從我的最愛清單中移除，請稍後再試"
+        });
+      }
     },
-    addLike() {
-      this.restaurant = {
-        ...this.restaurant, // 保留餐廳原有資料
-        isLiked: true
-      };
+    async addLike(restaurantId) {
+      try {
+        const { data, statusText } = await usersAPI.addLike(restaurantId);
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.restaurant = {
+          ...this.restaurant, // 保留餐廳原有資料
+          isLiked: true
+        };
+        Toast.fire({
+          icon: "success",
+          title: "已成功加至我的Like清單"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳加至我的Like清單，請稍後再試"
+        });
+      }
     },
-    deleteLike() {
-      this.restaurant = {
-        ...this.restaurant, // 保留餐廳原有資料
-        isLiked: false
-      };
+    async deleteLike(restaurantId) {
+      try {
+        const { data, statusText } = await usersAPI.deleteLike(restaurantId);
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.restaurant = {
+          ...this.restaurant, // 保留餐廳原有資料
+          isLiked: false
+        };
+        Toast.fire({
+          icon: "success",
+          title: "已成功從我的Like清單中移除"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳從我的Like清單中移除，請稍後再試"
+        });
+      }
     }
   }
 };
