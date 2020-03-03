@@ -1,8 +1,8 @@
 <template>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <!-- 回到上一頁 previousPage -->
-      <li class="page-item" v-show="previousPage">
+      <!-- 前一頁 previousPage -->
+      <li v-show="previousPage" class="page-item">
         <router-link
           class="page-link"
           aria-label="Previous"
@@ -11,7 +11,7 @@
           <span aria-hidden="true">&laquo;</span>
         </router-link>
       </li>
-      <!-- 頁碼 -->
+
       <li
         v-for="page in totalPage"
         :key="page"
@@ -23,8 +23,8 @@
         >{{ page }}</router-link>
       </li>
 
-      <!-- 前往下一頁 nextPage -->
-      <li class="page-item" v-show="nextPage">
+      <!-- 後一頁 nextPage -->
+      <li v-show="nextPage" class="page-item">
         <router-link
           class="page-link"
           :to="{name: 'restaurants', query: { categoryId, page: nextPage }}"
@@ -41,8 +41,8 @@
 export default {
   props: {
     categoryId: {
-      type: Number,
-      default: -1
+      type: [String, Number], //可同時存在二種以上
+      default: ""
     },
     currentPage: {
       type: Number,
@@ -50,7 +50,7 @@ export default {
     },
     totalPage: {
       type: Number,
-      default: -1
+      default: 0
     }
   },
   computed: {
@@ -63,11 +63,5 @@ export default {
         : this.currentPage + 1;
     }
   }
-  // data() {
-  //   return {
-  //     previousPage: currentPage === 1 ? 1 : currentPage - 1,
-  //     nextPage: currentPage === totalPage ? totalPage : currentPage + 1
-  //   };
-  // }
 };
 </script>

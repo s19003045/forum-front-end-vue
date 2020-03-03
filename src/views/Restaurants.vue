@@ -26,6 +26,9 @@
 <script>
 import restaurantsAPI from "../apis/restaurants";
 import { Toast } from "../utils/helpers";
+// import axios from "axios";
+// const baseURL = "https://sheltered-sea-38412.herokuapp.com/api";
+// const getToken = localStorage.getItem("token");
 
 export default {
   components: {
@@ -38,41 +41,46 @@ export default {
   data() {
     return {
       categories: [],
-      categoryId: -1,
+      categoryId: "",
       currentPage: 1,
       restaurants: [],
-      totalPage: -1
+      totalPage: 0
     };
   },
   created() {
-    this.fetchRestaurants({
-      page: 1,
-      categoryId: ""
-    });
+    const { page, categoryId } = this.$route.query;
+    this.fetchRestaurants({ page, categoryId });
+  },
+  // 使用 beforeRouteUpdate 方法取得使用者路由變化
+  beforeRouteUpdate(to, from, next) {
+    const { page, categoryId } = to.query;
+    this.fetchRestaurants({ page, categoryId });
+    // axios.get(`${baseURL}/restaurants?page=${page}&categoryId=2`, {
+    //   Authorization: `Bearer ${getToken}`
+    // });
+    next();
   },
   methods: {
-    async fetchRestaurants({ page, categoryId }) {
+    // STEP 1：直接在 fetchRestaurants 的地方帶入預設值
+    async fetchRestaurants({ page = 1, categoryId = "" }) {
       try {
-        const response = await restaurantsAPI.getRestaurants({
+        // STEP 2：直接把 response 內需要的屬性透過解構賦值拿出來
+        const { data, statusText } = await restaurantsAPI.getRestaurants({
           page,
           categoryId
         });
 
-        const { data, status, statusText } = response;
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
+
         this.categories = data.categories;
         this.categoryId = data.categoryId;
         this.currentPage = data.page;
         this.restaurants = data.restaurants;
         this.totalPage = data.totalPage.length;
-
-        Toast.fire({
-          icon: "success",
-          title: `status:${status}`
-        });
       } catch (error) {
+        console.log(error.response);
         Toast.fire({
           icon: "error",
           title: "無法取得餐廳資料，請稍後再試"

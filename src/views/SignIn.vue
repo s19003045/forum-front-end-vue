@@ -86,7 +86,9 @@ export default {
           throw new Error(statusText);
         }
 
+        // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.token);
+
         Toast.fire({
           icon: "success",
           title: `status:${data.status}`,
