@@ -4,11 +4,11 @@ import NotFound from './views/NotFound.vue'
 import SignIn from './views/SignIn.vue'
 // import SignUp from './views/SignUp.vue'
 import Restaurants from './views/Restaurants.vue'
-
+import store from './store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   linkExactActiveClass: 'active', //為當前選定的 router-link 增加 class，class 名稱自行定義
   routes: [
     {
@@ -68,3 +68,12 @@ export default new Router({
     },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // 使用 dispatch 呼叫 Vuex 內的 actions
+  store.dispatch('fetchCurrentUser')
+
+  next()
+})
+
+export default router
