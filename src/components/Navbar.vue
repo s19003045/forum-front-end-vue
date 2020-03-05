@@ -1,11 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark mb-5">
-    <router-link
-      class="navbar-brand"
-      to="/"
-    >
-      餐廳評論網
-    </router-link>
+    <router-link class="navbar-brand" to="/">餐廳評論網</router-link>
 
     <button
       class="navbar-toggler"
@@ -19,44 +14,24 @@
       <span class="navbar-toggler-icon" />
     </button>
 
-    <div
-      id="navbarSupportedContent"
-      class="navbar-collapse collapse"
-    >
+    <div id="navbarSupportedContent" class="navbar-collapse collapse">
       <div class="ml-auto d-flex align-items-center">
         <!-- is user is admin -->
-        <router-link
-          v-if="currentUser.isAdmin"
-          to="#"
-          class="text-white mr-3"
-        >
-          管理員後台
-        </router-link>
+        <router-link v-if="currentUser.isAdmin" to="#" class="text-white mr-3">管理員後台</router-link>
 
         <!-- is user is login -->
         <template v-if="isAuthenticated">
           <router-link
-            v-if="isAuthenticated==true"
+            v-if="isAuthenticated"
             :to="{name:'users',params:{id:currentUser.id}}"
             class="text-white mr-3"
-          >
-            {{ currentUser.name || '使用者' }} 您好
-          </router-link>
+          >{{ currentUser.name || '使用者' }} 您好</router-link>
 
           <button
             type="button"
             class="btn btn-sm btn-outline-success my-2 my-sm-0"
-          >
-            登出
-          </button>
-        </template>
-        <template v-if="isAuthenticated==false">
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-success my-2 my-sm-0"
-          >
-            登入
-          </button>
+            @click="logout"
+          >登出</button>
         </template>
       </div>
     </div>
@@ -64,40 +39,23 @@
 </template>
 
 <script>
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: "管理者",
-    email: "root@example.com",
-    image: "https://i.pravatar.cc/300",
-    isAdmin: true
-  },
-  isAuthenticated: true
-};
+import { mapState } from "vuex";
+
 export default {
   name: "NavbarVue",
-  data() {
-    return {
-      currentUser: {
+  computed: {
+    ...mapState(["currentUser", "isAuthenticated"])
+  },
+  methods: {
+    logout() {
+      this.currentUser = {
         id: -1,
         name: "",
         email: "",
         image: "",
         isAdmin: false
-      },
-      isAuthenticated: false
-    };
-  },
-  created() {
-    this.fetchUser();
-  },
-  methods: {
-    fetchUser() {
-      this.currentUser = {
-        ...this.currentUser,
-        ...dummyUser.currentUser
       };
-      this.isAuthenticated = dummyUser.isAuthenticated;
+      this.isAuthenticated = false;
     }
   }
 };
