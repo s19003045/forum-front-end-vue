@@ -88,6 +88,8 @@ export default {
 
         // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.token);
+        // 將 user 資料放進 store
+        this.$store.commit("setCurrentUser", data.user);
 
         Toast.fire({
           icon: "success",
