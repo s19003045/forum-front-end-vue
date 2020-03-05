@@ -17,10 +17,14 @@
 <script>
 // 載入 store
 import { mapState } from "vuex";
+// 載入 components
 import RestaurantDetail from "../components/RestaurantDetail";
 import RestaurantComments from "../components/RestaurantComments";
 import CreateComment from "../components/CreateComment";
-
+// 載入 apis
+import restaurantsAPI from "../apis/restaurants";
+// 載入 utils
+import { Toast } from "../utils/helpers";
 
 export default {
   components: {
@@ -43,6 +47,7 @@ export default {
         isLiked: false
       },
       restaurantComments: [],
+      isLoading: true
     };
   },
   computed: {
@@ -52,25 +57,45 @@ export default {
     const { id: restaurantId } = this.$route.params;
     this.fetchRestaurant(restaurantId);
   },
+  beforeRouteUpdate(to, from, next) {
+    const { id: restaurantId } = this.$route.params;
+    this.fetchRestaurant(restaurantId);
+    next();
+  },
   methods: {
-    fetchRestaurant(restaurantId) {
-      console.log("fetchRestaurant id: ", restaurantId);
+    async fetchRestaurant(restaurantId) {
+      try {
+        this.isLoading = true;
+        const { data, statusText } = await restaurantsAPI.getRestaurant({
+          restaurantId
+        });
 
-      this.restaurant = {
-        id: dummyData.restaurant.id,
-        name: dummyData.restaurant.name,
-        categoryName: dummyData.restaurant.Category.name,
-        image: dummyData.restaurant.image,
-        openingHours: dummyData.restaurant.opening_hours,
-        tel: dummyData.restaurant.tel,
-        address: dummyData.restaurant.address,
-        description: dummyData.restaurant.description,
-        isFavorited: dummyData.isFavorited,
-        isLiked: dummyData.isLiked
-      };
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
 
-      console.log(this.restaurant);
-      this.restaurantComments = dummyData.restaurant.Comments;
+        this.restaurant = {
+          id: data.restaurant.id,
+          name: data.restaurant.name,
+          categoryName: data.restaurant.Category.name,
+          image: data.restaurant.image,
+          openingHours: data.restaurant.opening_hours,
+          tel: data.restaurant.tel,
+          address: data.restaurant.address,
+          description: data.restaurant.description,
+          isFavorited: data.isFavorited,
+          isLiked: data.isLiked
+        };
+
+        this.restaurantComments = data.restaurant.Comments;
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        Toast.fire({
+          icon: "error",
+          title: "無法順利取得餐廳資訊，請稍後再試"
+        });
+      }
     },
     afterDeleteComment(commentId) {
       this.restaurantComments = this.restaurantComments.filter(

@@ -23,17 +23,13 @@
 </template>
 
 <script>
+// import store
+import { mapState } from "vuex";
+// import API
+import commentsAPI from "../apis/comments";
+// import utils
 import { fromNowFilter } from "../utils/mixins";
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: "管理者",
-    email: "root@example.com",
-    image: "https://i.pravatar.cc/300",
-    isAdmin: true
-  },
-  isAuthenticated: true
-};
+import { Toast } from "../utils/helpers";
 
 export default {
   mixins: [fromNowFilter],
@@ -43,17 +39,30 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      currentUser: dummyUser.currentUser
-    };
+  computed: {
+    ...mapState(["currentUser", "isAuthenticated"])
   },
   methods: {
-    handleDeleteButtonClick(commentId) {
-      console.log("handleDeleteButtonClick", commentId);
-      // TODO: 請求 API 伺服器刪除 id 為 commentId 的評論
-      // 觸發父層事件 - $emit( '事件名稱' , 傳遞的資料 )
-      this.$emit("after-delete-comment", commentId);
+    async handleDeleteButtonClick(commentId) {
+      try {
+        const { data, statusText } = await commentsAPI.deleteComment(commentId);
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+        // 觸發父層事件 - $emit( '事件名稱' , 傳遞的資料 )
+        this.$emit("after-delete-comment", commentId);
+
+        Toast.fire({
+          icon: "success",
+          title: "已成功刪除該筆評論"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "刪除該筆評論失敗，請稍後再試"
+        });
+      }
     }
   }
 };

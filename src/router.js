@@ -47,7 +47,7 @@ export default new Router({
       component: () => import('./views/RestaurantDashboard.vue') //component為單數，為 vue-router 的用法
     },
     {
-      path: '/restaurant/:id',
+      path: '/restaurants/:id',
       name: 'restaurant',
       component: () => import('./views/Restaurant.vue') //component為單數，為 vue-router 的用法
     },

@@ -12,7 +12,13 @@
 </template>
 
 <script>
+// import API
+import commentsAPI from "../apis/comments";
+// import utils
+import { Toast } from "../utils/helpers";
+// import modules
 import uuid from "uuid/v4";
+
 export default {
   props: {
     restaurantId: {
@@ -26,15 +32,36 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       // TODO: 向 API 發送 POST 請求
-      // 伺服器新增 Comment 成功後...
-      this.$emit("after-create-comment", {
-        commentId: uuid(), // 尚未串接 API 暫時使用隨機的 id
-        restaurantId: this.restaurantId,
-        text: this.text
-      });
-      this.text = ""; // 將表單內的資料清空
+      try {
+        const { data, statusText } = await commentsAPI.createComment({
+          text: this.text,
+          restaurantId: this.restaurantId
+        });
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        // 觸發父層事件 - $emit( '事件名稱' , 傳遞的資料 )
+        this.$emit("after-create-comment", {
+          commentId: uuid(), // 尚未串接 API 暫時使用隨機的 id
+          restaurantId: this.restaurantId,
+          text: this.text
+        });
+
+        this.text = ""; // 將表單內的資料清空
+        Toast.fire({
+          icon: "success",
+          title: "已成功新增評論"
+        });
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "新增該筆評論失敗，請稍後再試"
+        });
+      }
     }
   }
 };
