@@ -2,23 +2,20 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <!-- UserProfileCard -->
-      <UserProfileCard
-        :user="user"
-        :current-user="currentUser"
-      />
+      <UserProfileCard :user="user" :current-user="currentUser" />
 
       <div class="row">
         <div class="col-md-4">
           <!-- UserFollowingsCard -->
           <UserFollowingsCard :user-followings="userFollowings" />
-          <br>
+          <br />
           <!-- UserFollowersCard -->
           <UserFollowersCard :user-followers="userFollowers" />
         </div>
         <div class="col-md-8">
           <!-- UserCommentsCard -->
           <UserCommentsCard :user-comments="userComments" />
-          <br>
+          <br />
           <!-- UserFavoritedRestaurantsCard -->
           <UserFavoritedRestaurantsCard :user-favorited-restaurants="userFavoritedRestaurants" />
         </div>

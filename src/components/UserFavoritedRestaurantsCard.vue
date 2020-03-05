@@ -16,7 +16,7 @@
             width="60"
             height="60"
             class="avatar"
-          >
+          />
         </router-link>
       </span>
     </div>

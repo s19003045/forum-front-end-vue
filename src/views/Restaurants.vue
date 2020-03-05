@@ -2,9 +2,7 @@
   <div class="container py-5">
     <!-- 使用 NavTabs 元件 -->
     <NavTabs />
-    <h1 class="mt-5">
-      首頁 - 餐廳列表
-    </h1>
+    <h1 class="mt-5">首頁 - 餐廳列表</h1>
     <!-- 餐廳類別標籤 RestaurantsNavPills -->
     <RestaurantsNavPills :categories="categories" />
     <div class="row">
@@ -31,8 +29,9 @@ import NavTabs from "../components/NavTabs";
 import RestaurantsNavPills from "../components/RestaurantsNavPills";
 import RestaurantCard from "../components/RestaurantCard";
 import RestaurantPagination from "../components/RestaurantPagination";
-// 載入 utils
+// 載入 apis
 import restaurantsAPI from "../apis/restaurants";
+// 載入 utils
 import { Toast } from "../utils/helpers";
 
 export default {
@@ -82,7 +81,6 @@ export default {
         this.restaurants = data.restaurants;
         this.totalPage = data.totalPage.length;
       } catch (error) {
-        console.log(error);
         Toast.fire({
           icon: "error",
           title: "無法取得餐廳資料，請稍後再試"

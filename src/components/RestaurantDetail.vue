@@ -2,16 +2,14 @@
   <div class="row">
     <div class="col-md-12 mb-3">
       <h1>{{ restaurant.name }}</h1>
-      <p class="badge badge-secondary mt-1 mb-3">
-        {{ restaurant.categoryName }}
-      </p>
+      <p class="badge badge-secondary mt-1 mb-3">{{ restaurant.categoryName }}</p>
     </div>
     <div class="col-lg-4">
       <img
         class="img-responsive center-block"
         :src="restaurant.image"
         style="width: 250px;margin-bottom: 25px;"
-      >
+      />
       <div class="contact-info-wrap">
         <ul class="list-unstyled">
           <li>
