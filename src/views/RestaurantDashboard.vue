@@ -1,186 +1,86 @@
 <template>
   <div class="container py-5">
     <h1>{{ restaurant.name }}</h1>
-    <h5>[{{ restaurant.Category }}]</h5>
-    <hr>
+    <h5>[{{ restaurant.categoryName }}]</h5>
+    <hr />
 
     <div class="row">
       <div class="col-4">
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             關於此餐廳的評論數
-            <span class="badge badge-primary badge-pill">{{ restaurant.Comments.length }}</span>
+            <span class="badge badge-primary badge-pill">{{ restaurant.commentsLength }}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             多少人收藏此家餐廳
             <span
               class="badge badge-primary badge-pill"
-            >{{ restaurant.FavoritedUsers.length }}</span>
+            >{{ restaurant.favoritedUsersLength }}</span>
           </li>
         </ul>
+        <div class="mt-3">
+          <a href="#" @click="$router.back()">回上一頁</a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-const dummyRestaurant = {
-  restaurant: {
-    id: 2,
-    name: "Kaci Koelpin",
-    tel: "083-343-7765",
-    address: "22769 Johnson Squares",
-    opening_hours: "08:00",
-    description:
-      "Sequi facere sit iusto molestiae dolores quibusdam dolores. Labore deleniti beatae id. Qui quidem quibusdam fugiat qui harum odit voluptas. Beatae asperiores exercitationem quia commodi. Provident magnam sed expedita quibusdam labore aliquid hic.",
-    image:
-      "https://loremflickr.com/320/240/restaurant,food/?random=22.957592747300982",
-    viewCounts: 125,
-    createdAt: "2019-11-20T06:25:42.922Z",
-    updatedAt: "2020-02-26T10:20:59.482Z",
-    CategoryId: 1,
-    Category: "美式料理",
-    FavoritedUsers: [
-      {
-        id: 1,
-        name: "root1",
-        email: "root@example.com",
-        password:
-          "$2a$10$alLLwv1Kn0tC9euHs6Llwen8uif7jQfU9DPaybXRuGn83ZfKzW56G",
-        isAdmin: true,
-        image: null,
-        createdAt: "2019-11-20T06:25:42.456Z",
-        updatedAt: "2019-11-25T06:53:28.542Z",
-        Favorite: {
-          UserId: 1,
-          RestaurantId: 1,
-          createdAt: "2020-01-06T13:45:36.866Z",
-          updatedAt: "2020-01-06T13:45:36.866Z"
-        }
-      },
-      {
-        id: 1,
-        name: "root1",
-        email: "root@example.com",
-        password:
-          "$2a$10$alLLwv1Kn0tC9euHs6Llwen8uif7jQfU9DPaybXRuGn83ZfKzW56G",
-        isAdmin: true,
-        image: null,
-        createdAt: "2019-11-20T06:25:42.456Z",
-        updatedAt: "2019-11-25T06:53:28.542Z",
-        Favorite: {
-          UserId: 1,
-          RestaurantId: 1,
-          createdAt: "2020-01-06T13:45:36.866Z",
-          updatedAt: "2020-01-06T13:45:36.866Z"
-        }
-      },
-      {
-        id: 1,
-        name: "root1",
-        email: "root@example.com",
-        password:
-          "$2a$10$alLLwv1Kn0tC9euHs6Llwen8uif7jQfU9DPaybXRuGn83ZfKzW56G",
-        isAdmin: true,
-        image: null,
-        createdAt: "2019-11-20T06:25:42.456Z",
-        updatedAt: "2019-11-25T06:53:28.542Z",
-        Favorite: {
-          UserId: 1,
-          RestaurantId: 1,
-          createdAt: "2020-01-06T13:45:36.866Z",
-          updatedAt: "2020-01-06T13:45:36.866Z"
-        }
-      }
-    ],
-    Comments: [
-      {
-        id: 2,
-        text: "Ab vel tempore aut excepturi nobis labore velit.",
-        UserId: 1,
-        RestaurantId: 2,
-        createdAt: "2019-11-20T06:25:42.942Z",
-        updatedAt: "2019-11-20T06:25:42.942Z",
-        User: {
-          id: 1,
-          name: "root1",
-          email: "root@example.com",
-          password:
-            "$2a$10$alLLwv1Kn0tC9euHs6Llwen8uif7jQfU9DPaybXRuGn83ZfKzW56G",
-          isAdmin: true,
-          image: null,
-          createdAt: "2019-11-20T06:25:42.456Z",
-          updatedAt: "2019-11-25T06:53:28.542Z"
-        }
-      },
-      {
-        id: 52,
-        text: "Repellat ad quasi.",
-        UserId: 3,
-        RestaurantId: 2,
-        createdAt: "2019-11-20T06:25:42.944Z",
-        updatedAt: "2019-11-20T06:25:42.944Z",
-        User: {
-          id: 3,
-          name: "user2",
-          email: "user2@example.com",
-          password:
-            "$2a$10$8SSanoaxZCd/VEJFxxKShuWVFzU6JyuwvYDD6bP4UheZDbSWibPea",
-          isAdmin: false,
-          image: null,
-          createdAt: "2019-11-20T06:25:42.909Z",
-          updatedAt: "2019-11-20T06:25:42.909Z"
-        }
-      },
-      {
-        id: 102,
-        text:
-          "Iusto expedita quo ducimus nihil laborum amet ipsa et excepturi.",
-        UserId: 3,
-        RestaurantId: 2,
-        createdAt: "2019-11-20T06:25:42.946Z",
-        updatedAt: "2019-11-20T06:25:42.946Z",
-        User: {
-          id: 3,
-          name: "user2",
-          email: "user2@example.com",
-          password:
-            "$2a$10$8SSanoaxZCd/VEJFxxKShuWVFzU6JyuwvYDD6bP4UheZDbSWibPea",
-          isAdmin: false,
-          image: null,
-          createdAt: "2019-11-20T06:25:42.909Z",
-          updatedAt: "2019-11-20T06:25:42.909Z"
-        }
-      },
-      {
-        id: 151,
-        text: "Cool Restaurant",
-        UserId: 2,
-        RestaurantId: 2,
-        createdAt: "2019-11-20T08:59:36.728Z",
-        updatedAt: "2019-11-20T08:59:36.728Z",
-        User: {
-          id: 2,
-          name: "user1",
-          email: "user1@example.com",
-          password:
-            "$2a$10$ESv6iQjQ8oEe3/XGjw00PuSh1kjmG6Dkhd4YXa50boTlncJDxljAy",
-          isAdmin: false,
-          image: null,
-          createdAt: "2019-11-20T06:25:42.685Z",
-          updatedAt: "2019-11-21T09:55:30.970Z"
-        }
-      }
-    ]
-  }
-};
+import restaurantsAPI from "../apis/restaurants";
+import { Toast } from "../utils/helpers";
 
 export default {
   data() {
     return {
-      restaurant: dummyRestaurant.restaurant
+      restaurant: {
+        id: -1,
+        name: "",
+        categoryName: "",
+        commentsLength: 0,
+        favoritedUsersLength: 0,
+        likedUsersLength: 0
+      },
+      isLoading: true
     };
   },
-  methods: {}
+  created() {
+    const { id: restaurantId } = this.$route.params;
+    this.fetchRestaurant(restaurantId);
+  },
+  methods: {
+    async fetchRestaurant(restaurantId) {
+      try {
+        this.isLoading = true;
+        const {
+          data: { restaurant },
+          statusText
+        } = await restaurantsAPI.getRestaurant({
+          restaurantId
+        });
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.restaurant = {
+          ...this.restaurant,
+          id: restaurant.id,
+          name: restaurant.name,
+          categoryName: restaurant.Category.name,
+          commentsLength: restaurant.Comments.length,
+          favoritedUsersLength: restaurant.FavoritedUsers.length,
+          likedUsersLength: restaurant.LikedUsers.length
+        };
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        Toast.fire({
+          icon: "error",
+          title: "無法取得餐廳資料，請稍後再試"
+        });
+      }
+    }
+  }
 };
 </script>
