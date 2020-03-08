@@ -5,6 +5,7 @@ import SignIn from './views/SignIn.vue'
 // import SignUp from './views/SignUp.vue'
 import Restaurants from './views/Restaurants.vue'
 import store from './store'
+import { Toast } from './utils/helpers'
 
 Vue.use(Router)
 
@@ -75,8 +76,18 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // 使用 dispatch 呼叫 Vuex 內的 actions
-  store.dispatch('fetchCurrentUser')
+  const isAuthenticated = store.state.isAuthenticated
+
+  if (to.name !== 'sign-in' && !isAuthenticated) {
+    Toast.fire({
+      icon: 'error',
+      title: '請先登入'
+    })
+    next({ name: 'sign-in' })
+  } else {
+    // 使用 dispatch 呼叫 Vuex 內的 actions
+    store.dispatch('fetchCurrentUser')
+  }
 
   next()
 })
