@@ -79,10 +79,16 @@ export default {
     };
   },
   watch: {
-    initialRestaurant(restaurant) {
+    // 方式一：監測 restaurant ，若有變化，則將 initialRestaurant 傳至 this.restaurant
+    // restaurant: function() {
+    //   this.restaurant = this.initialRestaurant;
+    // }
+
+    // 方式二：監測 initialRestaurant ，若有變化，則將 initialRestaurant 傳至 this.restaurant
+    initialRestaurant: function() {
       this.restaurant = {
         ...this.restaurant,
-        ...restaurant
+        ...this.initialRestaurant
       };
     }
   },
