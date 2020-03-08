@@ -27,10 +27,16 @@
             class="text-white mr-3"
           >{{ currentUser.name || '使用者' }} 您好</router-link>
 
-          <button
+          <!-- <router-link
+            :to="{name:'logout'}"
+            @click.prevent.stop="logout"
             type="button"
             class="btn btn-sm btn-outline-success my-2 my-sm-0"
-            @click="logout"
+          >登出</router-link>-->
+          <button
+            @click.prevent.stop="logout"
+            type="button"
+            class="btn btn-sm btn-outline-success my-2 my-sm-0"
           >登出</button>
         </template>
       </div>
@@ -39,7 +45,13 @@
 </template>
 
 <script>
+// import store
 import { mapState } from "vuex";
+import store from "../store";
+// import utils
+import { Toast } from "../utils/helpers";
+
+import router from "../router";
 
 export default {
   name: "NavbarVue",
@@ -48,14 +60,15 @@ export default {
   },
   methods: {
     logout() {
-      this.currentUser = {
-        id: -1,
-        name: "",
-        email: "",
-        image: "",
-        isAdmin: false
-      };
-      this.isAuthenticated = false;
+      // 清除 store 中的 currentUser 及 isAuthenticated 改成 false
+      this.$store.commit("revokeAuthentication");
+
+      Toast.fire({
+        icon: "success",
+        title: "你已成功登出"
+      });
+      // 連結至 /logout 此路由，相當於：<router-link :to="{name:'logout'}"></router-link>
+      router.push({ name: "logout" });
     }
   }
 };

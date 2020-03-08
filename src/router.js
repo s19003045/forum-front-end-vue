@@ -20,12 +20,26 @@ const router = new Router({
     {
       path: '/signin',
       name: 'sign-in',
+      // beforeEnter: (to, from, next) => {
+      //   const isAuthenticated = store.state.isAuthenticated
+      //   console.log(route)
+      //   // if (isAuthenticated) {
+
+      //   // }
+      //   next()
+      // },
       component: SignIn //component為單數，為 vue-router 的用法
     },
     {
       path: '/signup',
       name: 'sign-up',
       component: () => import('./views/SignUp.vue')  //component為單數，為 vue-router 的用法
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      redirect: '/signin',
+      // component: () => import('./views/LogOut.vue') //component為單數，為 vue-router 的用法
     },
     {
       path: '/restaurants',
