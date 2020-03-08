@@ -62,6 +62,11 @@ const router = new Router({
       component: () => import('./views/User.vue') //component為單數，為 vue-router 的用法
     },
     {
+      path: '/users/:id/edit',
+      name: 'user-edit', //必須與路由的名稱一致，可以在 router-link 中使用此 name {router-link :to="{name:'users-edit',params:{id:xxxx}}"}
+      component: () => import('./views/UserEdit.vue') //component為單數，為 vue-router 的用法
+    },
+    {
       path: '*',
       name: 'not-found',
       component: NotFound //component為單數

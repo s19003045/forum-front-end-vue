@@ -12,6 +12,15 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
+  putUser({ userId, formData }) {
+    // axios.put(url[, data[, config]])
+    return apiHelper.put(`/users/${userId}`, formData, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'multipart/form-data'
+      },
+    })
+  },
   getTopUsers() {
     return apiHelper.get('/users/top', {
       headers: { Authorization: `Bearer ${getToken()}` }
